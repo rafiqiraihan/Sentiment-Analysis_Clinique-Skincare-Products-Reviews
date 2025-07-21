@@ -21,7 +21,7 @@ jobs:
     - name: Install dependencies
       run: |
         pip install pandas nltk joblib scikit-learn
-        python -m nltk.downloader punkt stopwords
+        python -m nltk.downloader punkt_tab stopwords
 
     - name: Run preprocessing script
       run: python scripts/main.py

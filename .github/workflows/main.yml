@@ -3,9 +3,9 @@ name: Text Preprocessing Pipeline
 on:
   push:
     paths:
-      - 'main.py'
-      - 'text_preprocessor.py'
-      - 'data/raw_reviews.csv'
+      - 'scripts/main.py'
+      - 'scripts/automation_preprocessing.py'
+      - 'data/previews_clinque.csv'
 
 jobs:
   preprocess:

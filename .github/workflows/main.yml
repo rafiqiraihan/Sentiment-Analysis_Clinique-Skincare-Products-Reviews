@@ -24,7 +24,7 @@ jobs:
         python -m nltk.downloader punkt_tab stopwords
 
     - name: Run preprocessing script
-      run: python main.py
+      run: python scripts/main.py
 
     - name: Upload output
       uses: actions/upload-artifact@v3

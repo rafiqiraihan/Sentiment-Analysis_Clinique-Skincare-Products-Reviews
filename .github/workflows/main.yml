@@ -1,0 +1,35 @@
+name: Text Preprocessing Pipeline
+
+on:
+  push:
+    paths:
+      - 'main.py'
+      - 'text_preprocessor.py'
+      - 'data/raw_reviews.csv'
+
+jobs:
+  preprocess:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11.9'
+
+    - name: Install dependencies
+      run: |
+        pip install pandas nltk joblib scikit-learn
+        python -m nltk.downloader punkt_tab stopwords
+
+    - name: Run preprocessing script
+      run: python main.py
+
+    - name: Upload output
+      uses: actions/upload-artifact@v3
+      with:
+        name: processed-data
+        path: |
+          data/processed_reviews.csv
+          output/text_preprocessor.joblib

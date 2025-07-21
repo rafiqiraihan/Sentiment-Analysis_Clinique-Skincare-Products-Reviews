@@ -2,16 +2,21 @@ name: Text Preprocessing Pipeline
 
 on:
   push:
-    paths:
-      - 'scripts/main.py'
-      - 'scripts/automation_preprocessing.py'
-      - 'data/previews_clinque.csv'
+    branches:
+      - main
 
 jobs:
   preprocess:
     runs-on: ubuntu-latest
+
     steps:
-    - uses: actions/checkout@v3
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Git LFS Pull
+      run: |
+        git lfs install
+        git lfs pull
 
     - name: Set up Python
       uses: actions/setup-python@v4
@@ -26,10 +31,10 @@ jobs:
     - name: Run preprocessing script
       run: python scripts/main.py
 
-    - name: Upload output
-      uses: actions/upload-artifact@v3
+    - name: Upload output artifact
+      uses: actions/upload-artifact@v4
       with:
         name: processed-data
         path: |
-          data/processed_reviews.csv
+          processed_reviews_clinique.csv
           output/text_preprocessor.joblib

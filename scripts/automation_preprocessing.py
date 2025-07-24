@@ -29,8 +29,8 @@ class TextPreprocessor(BaseEstimator, TransformerMixin):
         return X.apply(self._preprocess)
 
     def _preprocess(self, text):
-        if pd.isnull(text):
-            return ""
+        if pd.isnull(text) or not str(text).strip():
+            return "empty"
 
         # Lowercase
         text = text.lower()

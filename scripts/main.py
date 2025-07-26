@@ -2,16 +2,26 @@ import pandas as pd
 from joblib import dump
 from automation_preprocessing import TextPreprocessor
 
+def label_sentiment(rating):
+    if rating >= 4:
+        return 'positive'
+    elif rating <= 2:
+        return 'negative'
+    else:
+        return 'neutral'
+
 def preprocess_text_data(input_path, output_path_data, output_path_pipeline):
     df = pd.read_csv(input_path)
-
     df.columns = df.columns.str.strip()
 
-    if 'review_text' not in df.columns:
-        raise KeyError(f"Kolom 'review_text' tidak ditemukan dalam file: {input_path}\nKolom tersedia: {df.columns.tolist()}")
+    df = df.dropna(subset=['review_text', 'rating'])
+
+    df = df.drop_duplicates(subset='review_text')
 
     text_preprocessor = TextPreprocessor()
     df['processed_text'] = text_preprocessor.fit_transform(df['review_text'])
+
+    df['sentiment'] = df['rating'].apply(label_sentiment)
 
     df.to_csv(output_path_data, index=False)
     print(f"Data teks telah diproses dan disimpan ke: {output_path_data}")

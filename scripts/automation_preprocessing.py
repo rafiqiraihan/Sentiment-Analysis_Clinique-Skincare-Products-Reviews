@@ -26,11 +26,12 @@ class TextPreprocessor(BaseEstimator, TransformerMixin):
         return self
     
     def transform(self, X, y=None):
-        return X.apply(self._preprocess)
+        processed = X.apply(self._preprocess)
+        return processed.fillna("empty").replace(r'^\s*$', "empty", regex=True)
 
     def _preprocess(self, text):
-        if pd.isnull(text):
-            return ""
+        if pd.isnull(text) or not str(text).strip():
+            return "empty"
 
         # Lowercase
         text = text.lower()

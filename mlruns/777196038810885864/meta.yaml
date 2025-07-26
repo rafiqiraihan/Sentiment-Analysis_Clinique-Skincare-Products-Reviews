@@ -1,0 +1,6 @@
+artifact_location: mlflow-artifacts:/777196038810885864
+creation_time: 1753514736944
+experiment_id: '777196038810885864'
+last_update_time: 1753514736944
+lifecycle_stage: active
+name: Analisis Sentiment_Random Forest_GridSearch

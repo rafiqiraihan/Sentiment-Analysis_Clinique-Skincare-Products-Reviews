@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/777196038810885864/318bd38e4181445f9b64e1f61be8caf5/artifacts
+end_time: 1753517397359
+entry_point_name: ''
+experiment_id: '777196038810885864'
+lifecycle_stage: active
+run_id: 318bd38e4181445f9b64e1f61be8caf5
+run_name: colorful-fowl-743
+run_uuid: 318bd38e4181445f9b64e1f61be8caf5
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1753517340870
+status: 3
+tags: []
+user_id: RAFIQI RAIHAN

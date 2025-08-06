@@ -38,10 +38,17 @@ jobs:
         run: |
           mlflow run . --env-manager=local
 
+      - name: Upload model.pkl as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: trained-model
+          path: model/model.pkl
+    
       - name: Save mlruns to repo
         run: |
           git config --global user.name "${{ secrets.SECRETS_USERNAME }}"
           git config --global user.email "${{ secrets.SECRETS_EMAIL }}"
           git add mlruns/
+          git add model/model.pkl
           git commit -m "Save mlruns from CI run"
           git push origin main

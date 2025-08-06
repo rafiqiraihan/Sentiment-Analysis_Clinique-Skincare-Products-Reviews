@@ -44,7 +44,6 @@ def main(data_path):
 
         os.makedirs("model", exist_ok=True)
         joblib.dump(best_model, "model/model.pkl")
-        mlflow.log_artifact("model/model.pkl")
 
         mlflow.sklearn.log_model(
             sk_model=best_model,

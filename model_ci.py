@@ -10,14 +10,14 @@ import joblib
 import os
 
 def main(data_path):
+    mlflow.set_tracking_uri("file://" + os.path.abspath("mlruns"))
+
     df = pd.read_csv(data_path)
-    
     X = df['processed_text']
     y = df['sentiment']
 
     tfidf = TfidfVectorizer(max_features=200, min_df=17, max_df=0.8)
     X_tfidf = tfidf.fit_transform(X)
-
     X_train, X_test, y_train, y_test = train_test_split(X_tfidf, y, test_size=0.2, random_state=42)
 
     input_example = X_train[0:5]
@@ -31,21 +31,16 @@ def main(data_path):
     }
 
     log_reg = LogisticRegression(random_state=42)
-
     grid_search = GridSearchCV(log_reg, param_grid, cv=5, scoring='f1_weighted', n_jobs=-1)
     grid_search.fit(X_train, y_train)
-
 
     with mlflow.start_run():
         best_model = grid_search.best_estimator_
         best_params = grid_search.best_params_
 
         mlflow.log_params(best_params)
-
         os.makedirs("model", exist_ok=True)
         joblib.dump(best_model, "model/model.pkl")
-
-        mlflow.log_artifact("model/model.pkl")
 
         y_pred = best_model.predict(X_test)
         acc = accuracy_score(y_test, y_pred)

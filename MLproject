@@ -1,0 +1,11 @@
+name: sentiment-analysis-clinique
+
+conda_env: conda.yaml
+
+entry_points:
+  main:
+    parameters:
+      data_path: {type: str, default: "scripts/processed_reviews_clinique.csv"}
+    command: >
+      python train_model.py
+      --data_path {data_path}

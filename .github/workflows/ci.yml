@@ -13,6 +13,11 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
+      - name: Git LFS Pull
+        run: |
+          git lfs install
+          git lfs pull
+
       - name: Setup micromamba
         uses: mamba-org/setup-micromamba@v1
         with:

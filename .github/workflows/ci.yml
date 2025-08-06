@@ -1,7 +1,10 @@
-name: Sentiment Analysis CI
+name: CI Sentiment Analysis
 
 on:
   push:
+    branches:
+      - main
+  pull_request:
     branches:
       - main
 
@@ -18,24 +21,24 @@ jobs:
           git lfs install
           git lfs pull
 
-      - name: Setup micromamba
-        uses: mamba-org/setup-micromamba@v1
+      - name: Set up Python
+        uses: actions/setup-python@v4
         with:
-          environment-file: conda.yaml
-          environment-name: mlflow-env
-          init-shell: bash
-          cache-downloads: true
+          python-version: "3.11"
 
-      - name: Run Training Script (manual)
+      - name: Install pip dependencies
         run: |
-          eval "$(micromamba shell hook --shell=bash)"
-          micromamba activate mlflow-env
-          python model_ci.py --data_path scripts/processed_reviews_clinique.csv
+          python -m pip install --upgrade pip
+          pip install mlflow
+
+      - name: Run MLflow project
+        run: |
+          mlflow run . --env-manager=local
 
       - name: Save mlruns to repo
         run: |
           git config --global user.name "${{ secrets.username }}"
           git config --global user.email "${{ secrets.email }}"
           git add mlruns/
-          git commit -m "Add mlflow run result"
+          git commit -m "Add MLflow tracking results"
           git push origin main

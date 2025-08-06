@@ -26,3 +26,11 @@ jobs:
           eval "$(micromamba shell hook --shell=bash)"
           micromamba activate mlflow-env
           python model_ci.py --data_path scripts/processed_reviews_clinique.csv
+
+      - name: Save mlruns to repo
+        run: |
+          git config --global user.name "${{ secrets.username }}"
+          git config --global user.email "${{ secrets.email }}"
+          git add mlruns/
+          git commit -m "Add mlflow run result"
+          git push origin main

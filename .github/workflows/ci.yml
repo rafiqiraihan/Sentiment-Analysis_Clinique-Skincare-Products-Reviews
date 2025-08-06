@@ -4,9 +4,6 @@ on:
   push:
     branches:
       - main
-  pull_request:
-    branches:
-      - main
 
 jobs:
   train:
@@ -16,18 +13,16 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Setup Miniconda
-        uses: conda-incubator/setup-miniconda@v3
+      - name: Setup micromamba
+        uses: mamba-org/setup-micromamba@v1
         with:
-          auto-update-conda: true
-          python-version: 3.11
           environment-file: conda.yaml
-          activate-environment: mlflow-env
+          environment-name: mlflow-env
+          init-shell: bash
+          cache-downloads: true
 
-      - name: Install dependencies (pip)
+      - name: Run MLflow project
+        shell: bash -l {0}
         run: |
-          pip install mlflow==2.22.1
-
-      - name: Run MLflow Project
-        run: |
+          micromamba activate mlflow-env
           mlflow run . -P data_path=scripts/processed_reviews_clinique.csv

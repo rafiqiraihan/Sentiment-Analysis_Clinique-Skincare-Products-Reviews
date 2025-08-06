@@ -27,7 +27,7 @@ def main(data_path):
         'penalty': ['l2', 'l1', 'elasticnet'],
         'max_iter': [100, 200, 500, 700],
         'class_weight': ['balanced', None],
-        'solver': ['liblinear', 'lbfgs', 'saga']  # <- perbaikan kecil, koma sebelumnya hilang
+        'solver': ['liblinear', 'lbfgs', 'saga']
     }
 
     log_reg = LogisticRegression(random_state=42)

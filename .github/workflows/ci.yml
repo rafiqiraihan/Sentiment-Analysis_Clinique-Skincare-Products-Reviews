@@ -1,0 +1,33 @@
+name: Sentiment Analysis CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  train:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Miniconda
+        uses: conda-incubator/setup-miniconda@v3
+        with:
+          auto-update-conda: true
+          python-version: 3.11
+          environment-file: conda.yaml
+          activate-environment: mlflow-env
+
+      - name: Install dependencies (pip)
+        run: |
+          pip install mlflow==2.22.1
+
+      - name: Run MLflow Project
+        run: |
+          mlflow run . -P data_path=scripts/processed_reviews_clinique.csv

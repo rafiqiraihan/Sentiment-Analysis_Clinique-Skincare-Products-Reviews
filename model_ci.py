@@ -11,9 +11,6 @@ import os
 
 def main(data_path):
     df = pd.read_csv(data_path)
-    print("📁 File yang sedang dibaca:", data_path)
-    print("🧠 Kolom yang tersedia:", df.columns.tolist())
-    print("📌 5 baris pertama:\n", df.head())
     
     X = df['processed_text']
     y = df['sentiment']

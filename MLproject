@@ -7,5 +7,4 @@ entry_points:
     parameters:
       data_path: {type: str, default: "scripts/processed_reviews_clinique.csv"}
     command: >
-      python model_ci.py
-      --data_path {data_path}
+      python model_ci.py --data_path {data_path}

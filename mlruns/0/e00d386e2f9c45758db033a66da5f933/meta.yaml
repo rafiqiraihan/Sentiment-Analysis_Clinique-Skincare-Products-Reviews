@@ -1,0 +1,14 @@
+artifact_uri: mlflow-artifacts:/0/e00d386e2f9c45758db033a66da5f933/artifacts
+end_time: 1754474813324
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: e00d386e2f9c45758db033a66da5f933
+run_name: polite-gull-878
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1754474074437
+status: 3
+tags: []
+user_id: runner

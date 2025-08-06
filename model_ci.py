@@ -45,11 +45,7 @@ def main(data_path):
         os.makedirs("model", exist_ok=True)
         joblib.dump(best_model, "model/model.pkl")
 
-        mlflow.sklearn.log_model(
-            sk_model=best_model,
-            artifact_path="model",
-            input_example=input_example
-        )
+        mlflow.log_artifact("model/model.pkl")
 
         y_pred = best_model.predict(X_test)
         acc = accuracy_score(y_test, y_pred)
